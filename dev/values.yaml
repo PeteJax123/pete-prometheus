@@ -1,0 +1,47 @@
+server:
+  global:
+    scrape_interval: 15s
+
+alertmanager:
+  enabled: false
+
+pushgateway:
+  enabled: false
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
+
+grafana:
+  enabled: false
+
+serverFiles:
+  alerts: {}
+
+alertmanagerFiles:
+  alertmanager.yml: {}
+
+pushgatewayFiles:
+  pushgateway.yml: {}
+
+prometheusSpec:
+  storageSpec:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: standard
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 8Gi
+  resources:
+    requests:
+      memory: 400Mi
+      cpu: 200m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+  serviceMonitorNamespaceSelector:
+    matchNames:
+      - "Prometheus"   # Namespace where your ServiceMonitor resources are located

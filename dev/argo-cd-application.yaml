@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: grafana
+  source:
+    repoURL: 'https://github.com/PeteJax123/pete-grafana.git'
+    targetRevision: HEAD
+    path: .   # The path within the repository where the Kubernetes manifests are located
+  project: default   # The ArgoCD project to associate this application with
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
